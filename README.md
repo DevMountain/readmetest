@@ -1,4 +1,5 @@
 # Task
+Kyle's test change 8/16
 
 ## Level 2
 
@@ -77,14 +78,14 @@ Views in our application want to display completed and incomplete tasks separate
 2. Add a tasks Array property with an empty default value.
 3. Add a completedTasks computed Array property that returns only complete tasks.
     * note: Use a filter function on the tasks array
-4. Add an incompleteTasks computed Array property that returns only incomplete tasks. 
+4. Add an incompleteTasks computed Array property that returns only incomplete tasks.
     * note: Use a filter function on the tasks array
 5. Create a ```addTask(task: Task)``` function that adds the task parameter to the tasks array
     * note: At this point, you will need to remove your computed property, as you cannot set values to computed properties.
 6. Create a ```removeTask(task: Task)``` function that removes the task from the tasks array
     * note: There is no 'removeObject' function on arrays. You will need to find the index of the object and then remove the object at that index.
     * note: If you face a compiler error, you may need to check that you have properly implented the Equatable protocol for Task objects
-7. Create a sharedController property as a shared instance. 
+7. Create a sharedController property as a shared instance.
     * note: Review the syntax for creating shared instance properties
 
 ## Controller Staged Data Using a Mock Data Function
@@ -116,12 +117,12 @@ func filePath(key: String) -> String {
     let directorySearchResults = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,NSSearchPathDomainMask.AllDomainsMask, true)
     let documentsPath: AnyObject = directorySearchResults[0]
     let entriesPath = documentsPath.stringByAppendingString("/\(key).plist")
-    
+
     return entriesPath
 }
 ```
 
-This method accepts a string as a key and will return the path to a file in the Documents directory with that name. 
+This method accepts a string as a key and will return the path to a file in the Documents directory with that name.
 
 1. Write a method called ```saveToPersistentStorage()``` that will save the current tags array to a file using NSKeyedArchiver
     * note: ``NSKeyedArchiver.archiveRootObject(self.tasks, toFile: self.filePath(TaskKey))```
@@ -183,7 +184,7 @@ Look at the task detail screenshot or in the solution code. Set up the Storyboar
 5. Change the name of the third section to 'Notes', and add a text view to the cell
 6. Resize the UI elements and add automatic constraints so that they fill each cell
 
-Your Detail View should follow the 'updateWith' pattern for updating the view elements with the details of a model object. 
+Your Detail View should follow the 'updateWith' pattern for updating the view elements with the details of a model object.
 
 1. Add an ```updateWithTask(task: Task)``` function
 2. Implement the 'updateWith' function to update all view elements that reflect details about the model object (in this case, the name text field, the due date text field, and the notes text view)
@@ -204,7 +205,7 @@ You could place this extension code directly into the view controller that will 
 func stringValue() -> String {
     let formatter = NSDateFormatter()
     formatter.dateStyle = .MediumStyle
-    
+
     return formatter.stringFromDate(self)
 }
 ```
@@ -247,7 +248,7 @@ You will add two separate segues from the List View to the Detail View. The segu
 
 Build a custom table view cell to display tasks. The cell should display the task name and have a button that acts as a checkmark to display and toggle the completion status of the task.
 
-It is best practice to make table view cells reusable between apps. As a result, you will build a ```ButtonTableViewCell``` rather than a ```TaskTableViewCell``` that can be reused any time you want a cell with a button. You will add an extension to the ```ButtonTableViewCell``` for updating the view with a Task. 
+It is best practice to make table view cells reusable between apps. As a result, you will build a ```ButtonTableViewCell``` rather than a ```TaskTableViewCell``` that can be reused any time you want a cell with a button. You will add an extension to the ```ButtonTableViewCell``` for updating the view with a Task.
 
 1. Add a new ```ButtonTableViewCell.swift``` as a subclass of UITableViewCell
 2. Assign the new class to the prototype cell on the Task List Scene in ```Main.storyboard```
@@ -273,7 +274,7 @@ Write a protocol for the ```ButtonTableViewCell``` to delegate handling a button
 
 1. Add a protocol named ```ButtonTableViewCellDelegate``` to the bottom of the class file
 2. Define a required ```buttonCellButtonTapped(sender: ButtonTableViewCell)``` function
-3. Add an optional delegate property on the ButtonTableViewCell, require the delegate to have adopted the delegate protocol 
+3. Add an optional delegate property on the ButtonTableViewCell, require the delegate to have adopted the delegate protocol
     * note: ```var delegate: ButtonTableViewCellDelegate?```
 4. Update the ```buttonTapped``` IBAction to check if a delegate is assigned, and if so, call the delegate protocol function
 5. Adopt the protocol in the ```TaskListTableViewController``` class
@@ -329,13 +330,13 @@ Now you need to add a Convenience Initializer to your ```Task.swift``` file that
 convenience init(name: String, notes: String? = nil, due: NSDate? = nil, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
 
     // there is no graceful way to respond to a failure on NSEntityDescription.entityForName, force unwrapping and forcing a crash is the desired behavior for this app
-    
+
     // designated initializer
 
     let entity = NSEntityDescription.entityForName("Task", inManagedObjectContext: context)!
-    
+
     self.init(entity: entity, insertIntoManagedObjectContext: context)
-    
+
     // set properties here
 }
 ```
